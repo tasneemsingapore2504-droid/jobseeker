@@ -1,0 +1,135 @@
+/* CONTACT HERO */
+.contact-hero {
+  height: 220px;
+  background: #eae6cf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(30, 17, 17);
+  font-size: 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+  padding: 60px 40px;
+  background: #f5f5f5;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.contact-info {
+  width: 40%;
+  font-size: 18px;
+}
+
+.contact-form {
+  width: 60%;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  padding: 12px 20px;
+  background: #93885f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.hero {
+  height: 400px;
+  background-image: url("office.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(248, 246, 201, 0.5); /* black with opacity */
+}
+.hero * {
+  position: relative;
+  z-index: 1;
+}
+
+.footer {
+  background-color: #322002;
+  color: #ffffff;
+  margin-top: 60px;
+}
+
+.footer-container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 0;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.footer-section h3 {
+  color: #facc15;
+  margin-bottom: 15px;
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+  color: #facc15;
+}
+
+.footer-bottom {
+  background-color: #462303;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+}
