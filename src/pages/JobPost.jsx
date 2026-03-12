@@ -156,128 +156,141 @@ const JobPost = () => {
       <p>Please fill out the form below to fill your Job Post</p>
 
       <form onSubmit={handleSubmit}>
-        <input
-          name="jobId"
-          placeholder="Job ID"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="employerId"
-          placeholder="Employer ID"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="candidateId"
-          placeholder="Candidate ID"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="title"
-          placeholder="Title"
-          onChange={handleChange}
-          required
-        />
-
-        <textarea
-          name="description"
-          placeholder="Description"
-          onChange={handleChange}
-        />
-
-        <input
-          name="requirement"
-          placeholder="Requirement"
-          onChange={handleChange}
-        />
-
-        <input
-          type="number"
-          name="salary"
-          placeholder="Salary"
-          onChange={handleChange}
-        />
-
-        <label>Job Type</label>
-
-        <label>
+        <div className="field">
           <input
-            type="radio"
-            name="jobType"
-            value="FullTime"
+            name="jobId"
+            placeholder="Job ID"
             onChange={handleChange}
-          />{" "}
-          Full time
-        </label>
-
-        <label>
+            required
+          />
+        </div>
+        <div className="field">
           <input
-            type="radio"
-            name="jobType"
-            value="PartTime"
+            name="employerId"
+            placeholder="Employer ID"
             onChange={handleChange}
-          />{" "}
-          Part time
-        </label>
-
-        <label>
+            required
+          />
+        </div>
+        <div className="field">
           <input
-            type="radio"
-            name="jobType"
-            value="Internship"
+            name="candidateId"
+            placeholder="Candidate ID"
             onChange={handleChange}
-          />{" "}
-          Internship
-        </label>
-
-        <label>Work Mode</label>
-
-        <label>
+            required
+          />
+        </div>
+        <div className="field">
           <input
-            type="radio"
-            name="workMode"
-            value="Onsite"
+            name="title"
+            placeholder="Title"
             onChange={handleChange}
-          />{" "}
-          Onsite
-        </label>
-
-        <label>
+            required
+          />
+        </div>
+        <div className="field">
+          <textarea
+            name="description"
+            placeholder="Description"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
           <input
-            type="radio"
-            name="workMode"
-            value="Remote"
+            name="requirement"
+            placeholder="Requirement"
             onChange={handleChange}
-          />{" "}
-          Remote
-        </label>
-
-        <label>
+          />
+        </div>
+        <div className="field">
           <input
-            type="radio"
-            name="workMode"
-            value="Hybrid"
+            type="number"
+            name="salary"
+            placeholder="Salary"
             onChange={handleChange}
-          />{" "}
-          Hybrid
-        </label>
+          />
+        </div>
+        <div className="field">
+          <label>Job Type</label>
 
-        <input
-          name="education"
-          placeholder="Education"
-          onChange={handleChange}
-        />
+          <label>
+            <input
+              type="radio"
+              name="jobType"
+              value="FullTime"
+              onChange={handleChange}
+            />{" "}
+            Full time
+          </label>
 
-        <input name="country" placeholder="Country" onChange={handleChange} />
+          <label>
+            <input
+              type="radio"
+              name="jobType"
+              value="PartTime"
+              onChange={handleChange}
+            />{" "}
+            Part time
+          </label>
 
-        <input name="state" placeholder="State" onChange={handleChange} />
+          <label>
+            <input
+              type="radio"
+              name="jobType"
+              value="Internship"
+              onChange={handleChange}
+            />{" "}
+            Internship
+          </label>
+        </div>
+        <div className="field">
+          <label>Work Mode</label>
 
-        <input name="city" placeholder="City" onChange={handleChange} />
+          <label>
+            <input
+              type="radio"
+              name="workMode"
+              value="Onsite"
+              onChange={handleChange}
+            />{" "}
+            Onsite
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="workMode"
+              value="Remote"
+              onChange={handleChange}
+            />{" "}
+            Remote
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="workMode"
+              value="Hybrid"
+              onChange={handleChange}
+            />{" "}
+            Hybrid
+          </label>
+          <div className="field"></div>
+          <input
+            name="education"
+            placeholder="Education"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          <input name="country" placeholder="Country" onChange={handleChange} />
+        </div>
+        <div className="field">
+          <input name="state" placeholder="State" onChange={handleChange} />
+        </div>
+        <div className="field">
+          <input name="city" placeholder="City" onChange={handleChange} />
+        </div>
 
         <button type="submit" className="submit-btn">
           Apply
