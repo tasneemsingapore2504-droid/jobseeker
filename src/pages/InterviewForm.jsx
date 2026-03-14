@@ -74,8 +74,8 @@ import axios from "axios";
 
 const InterviewForm = () => {
   const [formData, setFormData] = useState({
-    employerId: "",
-    candidateId: "",
+    // employerId: "",
+    // candidateId: "",
     cname: "",
     intDate: "",
     intTime: "",
@@ -110,7 +110,7 @@ const InterviewForm = () => {
       <p>Please fill out the form below to fill the Interview Details</p>
 
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <label>Employer ID</label>
           <input name="employerId" onChange={handleChange} required />
         </div>
@@ -118,7 +118,7 @@ const InterviewForm = () => {
         <div className="field">
           <label>Candidate ID</label>
           <input name="candidateId" onChange={handleChange} required />
-        </div>
+        </div> */}
 
         <div className="field">
           <label>Company Name</label>

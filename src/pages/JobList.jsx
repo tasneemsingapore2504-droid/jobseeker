@@ -308,9 +308,200 @@
 // }
 // export default JobList;
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 
+// function JobList() {
+//   const [job, setJob] = useState([]);
+//   const [users, setUsers] = useState([]);
+//   const jobData = [
+//     {
+//       id: 1,
+//       title: "Multi Task Associate",
+//       qualification: "12th Pass / Any Graduate",
+//       skills: "Multitasking, Time management, Basic computer knowledge",
+//     },
+//     {
+//       id: 2,
+//       title: "Reporter",
+//       qualification: "Graduation in Journalism / Mass Communication",
+//       skills: "News reporting, Interviewing, Research, Communication",
+//     },
+// {
+//   id: 3,
+//   title: "Cameraman",
+//   qualification: "12th Pass / Diploma or Graduation in Media",
+//   skills: "Camera handling, Lighting, Framing, Video editing basics",
+// },
+// {
+//   id: 4,
+//   title: "Content Writer",
+//   qualification: "Graduation in English / Journalism / Any Graduate",
+//   skills: "Creative writing, Research, Content planning, SEO basics",
+// },
+// {
+//   id: 5,
+//   title: "Digital Marketing Executive / Social Media Handler",
+//   qualification: "Graduation / PG / Certification preferred",
+//   skills: "Social media management, Content creation, Ads, Analytics",
+// },
+// {
+//   id: 6,
+//   title: "Sales Executive",
+//   qualification: "12th Pass / Any Graduate",
+//   skills:
+//     "Communication, persuasion, negotiation, closing skills, customer relationship building",
+// },
+// {
+//   id: 7,
+//   title: "Computer Operator",
+//   qualification: "10+2 or Diploma in Computer Applications",
+//   skills:
+//     "Typing speed and accuracy, MS Office proficiency, data entry, internet and email handling",
+// },
+// {
+//   id: 8,
+//   title: "Office Assistant",
+//   qualification: "10+2 or equivalent",
+//   skills:
+//     "Communication skills, MS Office proficiency, filing and record management, organizational skills",
+// },
+// {
+//   id: 9,
+//   title: "Boutique Manager",
+//   qualification:
+//     "Bachelor's degree in Fashion Design, Fashion Merchandising, Business Administration",
+//   skills:
+//     "Leadership, customer service, sales and marketing, inventory management",
+// },
+// {
+//   id: 10,
+//   title: "Counselor",
+//   qualification:
+//     "Bachelor's degree in Psychology, Social Work, Counseling, or related field",
+//   skills:
+//     "Active listening, empathy, communication, problem-solving, emotional intelligence",
+// },
+// {
+//   id: 11,
+//   title: "Marketing Executive",
+//   qualification:
+//     "Bachelor's degree in Marketing, Business Administration, or related field",
+//   skills:
+//     "Communication, creativity, market research, digital marketing, social media management",
+// },
+// {
+//   id: 12,
+//   title: "Computer Teacher",
+//   qualification:
+//     "Bachelor’s degree in Computer Science, IT, or Education with Computer Science",
+//   skills:
+//     "Computer literacy, programming knowledge, MS Office proficiency, teaching skills",
+// },
+// {
+//   id: 13,
+//   title: "Stitcher",
+//   qualification: "8th / 10th / 12th Pass",
+//   skills: "Stitching, tailoring, measurement accuracy, fabric knowledge",
+// },
+// {
+//   id: 14,
+//   title: "Teacher (Primary & Higher Secondary)",
+//   qualification:
+//     "Primary: Graduation + D.Ed/B.Ed; Higher Secondary: PG + B.Ed",
+//   skills:
+//     "Subject expertise, lesson planning, classroom control, assessment",
+// },
+// {
+//   id: 15,
+//   title: "Hardware & Networking Executive",
+//   qualification: "Graduation / Diploma in IT / CS",
+//   skills:
+//     "Hardware troubleshooting, networking, system installation, tech support",
+// },
+// {
+//   id: 16,
+//   title: "Electrician",
+//   qualification: "10th / 12th Pass + ITI Electrician",
+//   skills: "Electrical installation, fault finding, safety practices",
+// },
+// {
+//   id: 17,
+//   title: "Security Guard",
+//   qualification: "8th / 10th Pass",
+//   skills: "Surveillance, alertness, discipline, emergency response",
+// },
+// {
+//   id: 18,
+//   title: "Driver",
+//   qualification: "8th / 10th Pass + Valid License",
+//   skills: "Safe driving, traffic rules, vehicle maintenance",
+// },
+// {
+//   id: 19,
+//   title: "Premises In-charge",
+//   qualification: "Any Graduate",
+//   skills:
+//     "Facility supervision, maintenance coordination, safety, vendor handling",
+// },
+// {
+//   id: 20,
+//   title: "Accountant",
+//   qualification: "B.Com / M.Com",
+//   skills: "Accounting, Tally, GST, TDS, financial reporting",
+// },
+//   ];
+
+//   const fetchUsers = async () => {
+//     const res = await axios.get("http://localhost:5000/api/JobPost");
+//     setUsers(res.data);
+//   };
+
+//   useEffect(() => {
+//     fetchUsers();
+//   }, []);
+
+//   return (
+//     <>
+//       <header className="header">
+//         <h1>Explore Job Opportunities</h1>
+//         <p>Find suitable roles based on your skills and qualifications</p>
+//       </header>
+
+//       <section className="jobs-container">
+//         <div className="job-grid">
+//           {jobData.map((job) => (
+//             <div className="job-card" key={job.id}>
+//               <h3>{job.title}</h3>
+
+//               <p>
+//                 <strong>Qualification:</strong> {job.qualification}
+//               </p>
+
+//               <p>
+//                 <strong>Skills:</strong> {job.skills}
+//               </p>
+
+//               <Link className="linkBtn" to="/applyForm">
+//                 Apply Now
+//               </Link>
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+//     </>
+//   );
+// }
+
+// export default JobList;
+
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 function JobList() {
+  const [jobs, setJobs] = useState([]);
+
   const jobData = [
     {
       id: 1,
@@ -449,14 +640,17 @@ function JobList() {
     },
   ];
 
-  const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/api/CompanyProfile");
-    setUsers(res.data);
+  const fetchJobs = async () => {
+    const res = await axios.get("http://localhost:5000/api/JobPost");
+    setJobs(res.data);
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchJobs();
   }, []);
+
+  // ⭐ ADD THIS HERE
+  const allJobs = [...jobData, ...jobs];
 
   return (
     <>
@@ -467,17 +661,27 @@ function JobList() {
 
       <section className="jobs-container">
         <div className="job-grid">
-          {jobData.map((job) => (
-            <div className="job-card" key={job.id}>
+          {allJobs.map((job, index) => (
+            <div className="job-card" key={job._id || job.id || index}>
               <h3>{job.title}</h3>
 
-              <p>
-                <strong>Qualification:</strong> {job.qualification}
-              </p>
+              {job.qualification && (
+                <p>
+                  <strong>Qualification:</strong> {job.qualification}
+                </p>
+              )}
 
-              <p>
-                <strong>Skills:</strong> {job.skills}
-              </p>
+              {/* {job.description && (
+                <p>
+                  <strong>Description:</strong> {job.description}
+                </p>
+              )} */}
+
+              {job.skills && (
+                <p>
+                  <strong>Skills:</strong> {job.skills}
+                </p>
+              )}
 
               <Link className="linkBtn" to="/applyForm">
                 Apply Now
@@ -489,5 +693,4 @@ function JobList() {
     </>
   );
 }
-
 export default JobList;

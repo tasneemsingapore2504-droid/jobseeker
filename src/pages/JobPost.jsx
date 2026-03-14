@@ -116,19 +116,24 @@ import axios from "axios";
 
 const JobPost = () => {
   const [formData, setFormData] = useState({
-    jobId: "",
-    employerId: "",
-    candidateId: "",
+    // jobId: "",
+    // employerId: "",
+    // candidateId: "",
+    company: "",
     title: "",
     description: "",
     requirement: "",
+    qualification: "",
+    skills: "",
     salary: "",
     jobType: "",
+    lastDate: "",
     workMode: "",
-    education: "",
+
     country: "",
     state: "",
     city: "",
+    link: "",
   });
 
   const handleChange = (e) => {
@@ -156,7 +161,7 @@ const JobPost = () => {
       <p>Please fill out the form below to fill your Job Post</p>
 
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <input
             name="jobId"
             placeholder="Job ID"
@@ -176,6 +181,14 @@ const JobPost = () => {
           <input
             name="candidateId"
             placeholder="Candidate ID"
+            onChange={handleChange}
+            required
+          />
+        </div> */}
+        <div className="field">
+          <input
+            name="company"
+            placeholder="Company Name"
             onChange={handleChange}
             required
           />
@@ -201,6 +214,16 @@ const JobPost = () => {
             placeholder="Requirement"
             onChange={handleChange}
           />
+        </div>
+        <div className="field">
+          <input
+            name="qualification"
+            placeholder="Qualification"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          <input name="skills" placeholder="Skills" onChange={handleChange} />
         </div>
         <div className="field">
           <input
@@ -244,6 +267,14 @@ const JobPost = () => {
           </label>
         </div>
         <div className="field">
+          <input
+            name="lastDate"
+            placeholder="Last Date to Apply"
+            type="date"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
           <label>Work Mode</label>
 
           <label>
@@ -275,13 +306,14 @@ const JobPost = () => {
             />{" "}
             Hybrid
           </label>
-          <div className="field"></div>
+        </div>
+        {/* <div className="field">
           <input
             name="education"
             placeholder="Education"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="field">
           <input name="country" placeholder="Country" onChange={handleChange} />
         </div>
@@ -290,6 +322,13 @@ const JobPost = () => {
         </div>
         <div className="field">
           <input name="city" placeholder="City" onChange={handleChange} />
+        </div>
+        <div className="field">
+          <input
+            name="link"
+            placeholder="Link of company page"
+            onChange={handleChange}
+          />
         </div>
 
         <button type="submit" className="submit-btn">

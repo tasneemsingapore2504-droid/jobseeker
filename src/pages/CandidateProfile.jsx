@@ -134,7 +134,7 @@ import axios from "axios";
 
 const CandidateProfile = () => {
   const [formData, setFormData] = useState({
-    candidateId: "",
+    // candidateId: "",
     fname: "",
     lname: "",
     gender: "",
@@ -182,10 +182,10 @@ const CandidateProfile = () => {
       <p>Please fill out the form below to fill your Profile</p>
 
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <label>Candidate ID</label>
           <input name="candidateId" onChange={handleChange} />
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="field">

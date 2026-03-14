@@ -77,7 +77,7 @@ import axios from "axios";
 
 const CompanyProfile = () => {
   const [formData, setFormData] = useState({
-    employerId: "",
+    // employerId: "",
     cname: "",
     website: "",
     cemail: "",
@@ -113,10 +113,10 @@ const CompanyProfile = () => {
       <p>Please fill out the form below to fill your Company Profile</p>
 
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <label>Employer ID</label>
           <input name="employerId" onChange={handleChange} required />
-        </div>
+        </div> */}
 
         <div className="field">
           <label>Company Name</label>

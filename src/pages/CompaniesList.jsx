@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
 function CompaniesList() {
   const [company, setCompany] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const jobData = [
+  const compData = [
     {
       id: 1,
       title: "Junior Software Engineer-Full Stack Developer",
@@ -143,6 +144,8 @@ function CompaniesList() {
     fetchUsers();
   }, []);
 
+  const allCompanies = [...compData, ...users];
+
   return (
     <>
       <header className="header">
@@ -152,7 +155,7 @@ function CompaniesList() {
 
       <section className="jobs-container">
         <div className="job-grid">
-          {jobData.map((job) => (
+          {allCompanies.map((job, index) => (
             <div className="job-card" key={job.id}>
               <h3>{job.title}</h3>
               <h6>{job.company}</h6>
