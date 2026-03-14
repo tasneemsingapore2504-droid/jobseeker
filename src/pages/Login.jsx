@@ -1,97 +1,79 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "/Users/hussain.sw/tassy/jobseeker/src/assets/css-files/register.css";
 
 const Login = () => {
   const [role, setRole] = useState("jobseeker");
 
   return (
-    <div className="container">
-      <div className="row shadow-lg auth-container bg-white">
-        {/* LEFT PANEL */}
-        <div className="col-md-6 left-side">
-          <h2>JobSeek</h2>
-          <p className="mt-3">Find • Apply • Grow</p>
-        </div>
+    <div className="page-wrapper">
+      <div className="container">
+        <div className="auth-container shadow-lg">
 
-        {/* RIGHT PANEL */}
-        <div className="col-md-6 form-section">
-          <h4 className="text-center mb-3">Register As</h4>
-
-          <div className="d-flex justify-content-center gap-4 mb-4">
+          {/* LEFT PANEL */}
+          <div className="left-side">
             <div>
-              <input
-                type="radio"
-                name="role"
-                value="recruiter"
-                onChange={(e) => setRole(e.target.value)}
-              />{" "}
-              Recruiter
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                name="role"
-                value="jobseeker"
-                onChange={(e) => setRole(e.target.value)}
-              />{" "}
-              JobSeeker
+              <h1 className="fw-bold">JobSeek</h1>
+              <p className="mt-3">Find • Apply • Grow</p>
             </div>
           </div>
 
-          {/* JOBSEEKER FORM */}
+          {/* RIGHT PANEL */}
+          <div className="form-section">
 
-          {role === "jobseeker" && (
-            <div className="form-box active">
-              <h5 className="mb-3">JobSeeker Sign Up</h5>
+            <div className="form-wrapper">
+
+              <h3 className="text-center mb-4">Login</h3>
+
+              {/* ROLE TOGGLE */}
+              <div className="role-toggle-container mb-4">
+                <button
+                  className={`role-toggle-btn ${
+                    role === "jobseeker" ? "active" : ""
+                  }`}
+                  onClick={() => setRole("jobseeker")}
+                >
+                  Job Seeker
+                </button>
+
+                <button
+                  className={`role-toggle-btn ${
+                    role === "recruiter" ? "active" : ""
+                  }`}
+                  onClick={() => setRole("recruiter")}
+                >
+                  Recruiter
+                </button>
+              </div>
 
               <form>
+
                 <input
                   type="email"
-                  className="form-control mb-2"
+                  className="form-control custom-input mb-3"
                   placeholder="Email"
                   required
                 />
 
                 <input
                   type="password"
-                  className="form-control mb-2"
+                  className="form-control custom-input mb-3"
                   placeholder="Password"
                   required
                 />
 
-                <input type="file" className="form-control mb-3" required />
+                <button className="custom-btn w-100">
+                  Login
+                </button>
 
-                <button className="btn btn-success w-100">Sign Up</button>
               </form>
+
+              <p className="text-center mt-3 small-text">
+                Don't have an account? Register
+              </p>
+
             </div>
-          )}
 
-          {/* RECRUITER FORM */}
-
-          {role === "recruiter" && (
-            <div className="form-box active">
-              <h5 className="mb-3">Recruiter Sign Up</h5>
-
-              <form>
-                <input
-                  type="email"
-                  className="form-control mb-2"
-                  placeholder="Company Email"
-                  required
-                />
-
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="Password"
-                  required
-                />
-
-                <button className="btn btn-primary w-100">Sign Up</button>
-              </form>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
