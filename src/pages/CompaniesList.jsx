@@ -135,7 +135,7 @@ function CompaniesList() {
   ];
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/api/CompanyProfile");
+    const res = await axios.get("http://localhost:5000/api/JobPost");
     setUsers(res.data);
   };
 
@@ -171,7 +171,7 @@ function CompaniesList() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Apply on Company Website
+                View Company Website
               </a>
             </div>
           ))}
