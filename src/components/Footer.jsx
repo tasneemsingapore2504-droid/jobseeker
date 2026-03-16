@@ -4,7 +4,7 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-section">
           <h3>JobSeek</h3>
-          <p>
+          <p className="desc">
             JobSeek is a recruitment hub that helps you search
             jobs,companies,upload resume and get you dream job
           </p>
@@ -30,14 +30,14 @@ function Footer() {
 
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>Email: jobSeek26@gmail.com.com</p>
-          <p>Phone: +91 62320 65372</p>
-          <p>Ujjain, Madhya Pradesh</p>
+          <p className="desc">Email: jobSeek26@gmail.com.com</p>
+          <p className="desc">Phone: +91 62320 65372</p>
+          <p className="desc">Ujjain, Madhya Pradesh</p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 Jobseek | Academic Project</p>
+        <p className="desc">© 2026 Jobseek | Academic Project</p>
       </div>
     </footer>
   );

@@ -84,7 +84,17 @@ const Register = () => {
                     required
                   />
 
-                  <input type="file" className="form-control mb-3" required />
+                  <div className="mb-3">
+                    <label htmlFor="resumeUpload" className="form-label">
+                      Resume
+                    </label>
+                    <input 
+                      type="file" 
+                      className="form-control" 
+                      id="resumeUpload" 
+                      required 
+                    />
+                  </div>
 
                   <button className="custom-btn w-100">Sign Up</button>
                 </form>
