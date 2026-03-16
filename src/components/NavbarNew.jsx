@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 const NavbarNew = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   return (
     <nav className="main-navbar">
       {/* LEFT */}
@@ -29,12 +32,25 @@ const NavbarNew = () => {
           Login
         </Link>
 
+        {/* <input
+          type="text"
+          className="search-box mobile-search"
+          placeholder="Search..."
+        /> */}
         <input
           type="text"
           className="search-box mobile-search"
           placeholder="Search..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <button className="search-btn mobile-search">Search</button>
+        <button
+          className="search-btn mobile-search"
+          onClick={() => navigate(`/companiesList?search=${search}`)}
+        >
+          Search
+        </button>
+        {/* <button className="search-btn mobile-search">Search</button> */}
 
         {/* HAMBURGER */}
         <div
