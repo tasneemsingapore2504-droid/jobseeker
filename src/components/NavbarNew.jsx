@@ -8,7 +8,7 @@ const NavbarNew = () => {
       {/* LEFT */}
       <div className="nav-left">
         <div className="logo">
-          Learn<span>Go</span>
+          Job<span>Seek</span>
         </div>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>

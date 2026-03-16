@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 const Login = () => {
   const [role, setRole] = useState("jobseeker");
 
@@ -60,7 +60,7 @@ const Login = () => {
               </form>
 
               <p className="text-center mt-3 small-text">
-                Don't have an account? Register
+                Don't have an account? <Link to="/register">Register</Link>
               </p>
             </div>
           </div>
