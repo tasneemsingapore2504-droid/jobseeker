@@ -1,140 +1,8 @@
-// const CandidateProfile = () => {
-//   return (
-//     <div class="form-card">
-//       <h1>Candidate Profile</h1>
-//       <p>Please fill out the form below to fill you Profile</p>
-
-//       <form>
-//         <div class="field">
-//           <label>Candidate ID</label>
-//           <input type="text" required />
-//         </div>
-//         <div class="row">
-//           <div class="field">
-//             <label>First Name</label>
-//             <input type="text" required />
-//           </div>
-//           <div class="field">
-//             <label>Last Name</label>
-//             <input type="text" required />
-//           </div>
-//         </div>
-
-//         <div class="field">
-//           <label>Gender</label>
-//           <div class="options">
-//             <label>
-//               <input type="radio" name="gender" /> Male
-//             </label>
-//             <label>
-//               <input type="radio" name="gender" /> Female
-//             </label>
-//             <label>
-//               <input type="radio" name="gender" /> Other
-//             </label>
-//           </div>
-//         </div>
-
-//         <div class="row">
-//           <div class="field">
-//             <label>Mother Name</label>
-//             <input type="text" required />
-//           </div>
-//           <div class="field">
-//             <label>Father Name</label>
-//             <input type="text" required />
-//           </div>
-//         </div>
-
-//         <div class="field">
-//           <label>Email</label>
-//           <input type="email" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Phone Number</label>
-//           <input type="tel" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Age</label>
-//           <input type="number" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Add DOB</label>
-//           <input type="date" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Add Current City</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Address</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Pincode</label>
-//           <input type="number" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Highest Qualification</label>
-//           <input type="text" required />
-//         </div>
-//         <div class="field">
-//           <label>University</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Percentage</label>
-//           <input type="number" />
-//         </div>
-
-//         <div class="field">
-//           <label>Experience</label>
-//           <input type="text" />
-//         </div>
-
-//         <div class="field">
-//           <label>Skills</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Certificates</label>
-//           <input type="text" />
-//         </div>
-
-//         <div class="field">
-//           <label>Upload Resume</label>
-//           <input type="file" />
-//         </div>
-
-//         <div class="field">
-//           <label>Any Other Documents</label>
-//           <input type="file" placeholder="Certificates,Awards,etc..." />
-//         </div>
-
-//         <button type="submit" class="submit-btn">
-//           Apply
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-// export default CandidateProfile;
-
 import { useState } from "react";
 import axios from "axios";
 
 const CandidateProfile = () => {
   const [formData, setFormData] = useState({
-    // candidateId: "",
     fname: "",
     lname: "",
     gender: "",
@@ -158,19 +26,51 @@ const CandidateProfile = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value, files } = e.target;
+
+    if (files) {
+      setFormData({
+        ...formData,
+        [name]: files[0].name,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/CandidateProfile", formData);
+      await axios.post("http://localhost:5000/api/candidateprofile", formData);
 
       alert("Candidate Profile Saved");
+
+      setFormData({
+        fname: "",
+        lname: "",
+        gender: "",
+        mname: "",
+        faname: "",
+        email: "",
+        phone: "",
+        age: "",
+        dob: "",
+        city: "",
+        address: "",
+        pincode: "",
+        qualification: "",
+        university: "",
+        percentage: "",
+        experience: "",
+        skills: "",
+        certificates: "",
+        resume: "",
+        documents: "",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -182,20 +82,23 @@ const CandidateProfile = () => {
       <p>Please fill out the form below to fill your Profile</p>
 
       <form onSubmit={handleSubmit}>
-        {/* <div className="field">
-          <label>Candidate ID</label>
-          <input name="candidateId" onChange={handleChange} />
-        </div> */}
-
         <div className="row">
           <div className="field">
             <label>First Name</label>
-            <input name="fname" onChange={handleChange} />
+            <input
+              name="fname"
+              value={formData.fname}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="field">
             <label>Last Name</label>
-            <input name="lname" onChange={handleChange} />
+            <input
+              name="lname"
+              value={formData.lname}
+              onChange={handleChange}
+            />
           </div>
         </div>
 
@@ -236,88 +139,133 @@ const CandidateProfile = () => {
         <div className="row">
           <div className="field">
             <label>Mother Name</label>
-            <input name="mname" onChange={handleChange} />
+            <input
+              name="mname"
+              value={formData.mname}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="field">
             <label>Father Name</label>
-            <input name="faname" onChange={handleChange} />
+            <input
+              name="faname"
+              value={formData.faname}
+              onChange={handleChange}
+            />
           </div>
         </div>
 
         <div className="field">
           <label>Email</label>
-          <input name="email" onChange={handleChange} />
+          <input name="email" value={formData.email} onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Phone</label>
-          <input name="phone" onChange={handleChange} />
+          <input name="phone" value={formData.phone} onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Age</label>
-          <input name="age" onChange={handleChange} />
+          <input name="age" value={formData.age} onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>DOB</label>
-          <input type="date" name="dob" onChange={handleChange} />
+          <input
+            type="date"
+            name="dob"
+            value={formData.dob}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>City</label>
-          <input name="city" onChange={handleChange} />
+          <input name="city" value={formData.city} onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Address</label>
-          <input name="address" onChange={handleChange} />
+          <input
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Pincode</label>
-          <input name="pincode" onChange={handleChange} />
+          <input
+            name="pincode"
+            value={formData.pincode}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Qualification</label>
-          <input name="qualification" onChange={handleChange} />
+          <input
+            name="qualification"
+            value={formData.qualification}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>University</label>
-          <input name="university" onChange={handleChange} />
+          <input
+            name="university"
+            value={formData.university}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Percentage</label>
-          <input name="percentage" onChange={handleChange} />
+          <input
+            name="percentage"
+            value={formData.percentage}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Experience</label>
-          <input name="experience" onChange={handleChange} />
+          <input
+            name="experience"
+            value={formData.experience}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Skills</label>
-          <input name="skills" onChange={handleChange} />
+          <input
+            name="skills"
+            value={formData.skills}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Certificates</label>
-          <input name="certificates" onChange={handleChange} />
+          <input
+            name="certificates"
+            value={formData.certificates}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Upload Resume</label>
-          <input name="uploadRes" type="file" onChange={handleChange} />
+          <input type="file" name="resume" onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Any Other Documents</label>
-          <input name="anyDoc" type="file" onChange={handleChange} />
+          <input type="file" name="documents" onChange={handleChange} />
         </div>
 
         <button type="submit" className="submit-btn">

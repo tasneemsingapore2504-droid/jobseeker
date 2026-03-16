@@ -74,8 +74,6 @@ import axios from "axios";
 
 const InterviewForm = () => {
   const [formData, setFormData] = useState({
-    // employerId: "",
-    // candidateId: "",
     cname: "",
     intDate: "",
     intTime: "",
@@ -96,9 +94,19 @@ const InterviewForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/InterviewForm", formData);
+      await axios.post("http://localhost:5000/api/interviewform", formData);
 
-      alert("Interview Saved");
+      alert("Interview Saved Successfully");
+
+      setFormData({
+        cname: "",
+        intDate: "",
+        intTime: "",
+        intPlace: "",
+        candidateName: "",
+        apPos: "",
+        selection: "",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -110,44 +118,57 @@ const InterviewForm = () => {
       <p>Please fill out the form below to fill the Interview Details</p>
 
       <form onSubmit={handleSubmit}>
-        {/* <div className="field">
-          <label>Employer ID</label>
-          <input name="employerId" onChange={handleChange} required />
-        </div>
-
-        <div className="field">
-          <label>Candidate ID</label>
-          <input name="candidateId" onChange={handleChange} required />
-        </div> */}
-
         <div className="field">
           <label>Company Name</label>
-          <input name="cname" onChange={handleChange} required />
+          <input
+            name="cname"
+            value={formData.cname}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="field">
           <label>Interview Date</label>
-          <input type="date" name="intDate" onChange={handleChange} />
+          <input
+            type="date"
+            name="intDate"
+            value={formData.intDate}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Interview Time</label>
-          <input type="time" name="intTime" onChange={handleChange} />
+          <input
+            type="time"
+            name="intTime"
+            value={formData.intTime}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Interview Place</label>
-          <input name="intPlace" onChange={handleChange} />
+          <input
+            name="intPlace"
+            value={formData.intPlace}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Candidate Name</label>
-          <input name="candidateName" onChange={handleChange} />
+          <input
+            name="candidateName"
+            value={formData.candidateName}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Applied Position</label>
-          <input name="apPos" onChange={handleChange} />
+          <input name="apPos" value={formData.apPos} onChange={handleChange} />
         </div>
 
         <div className="field">
@@ -158,8 +179,9 @@ const InterviewForm = () => {
               type="radio"
               name="selection"
               value="Selected"
+              checked={formData.selection === "Selected"}
               onChange={handleChange}
-            />{" "}
+            />
             Selected
           </label>
 
@@ -168,8 +190,9 @@ const InterviewForm = () => {
               type="radio"
               name="selection"
               value="Rejected"
+              checked={formData.selection === "Rejected"}
               onChange={handleChange}
-            />{" "}
+            />
             Rejected
           </label>
 
@@ -178,14 +201,15 @@ const InterviewForm = () => {
               type="radio"
               name="selection"
               value="Pending"
+              checked={formData.selection === "Pending"}
               onChange={handleChange}
-            />{" "}
+            />
             Pending
           </label>
         </div>
 
         <button type="submit" className="submit-btn">
-          Apply
+          Submit
         </button>
       </form>
     </div>

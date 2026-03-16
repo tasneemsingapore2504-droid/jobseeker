@@ -48,6 +48,7 @@ const Register = () => {
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Full Name"
+                    name="fname"
                     required
                   />
 
@@ -55,23 +56,27 @@ const Register = () => {
                     type="email"
                     className="form-control custom-input mb-3"
                     placeholder="Email"
+                    name="email"
                     required
                   />
 
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Phone"
+                    name="phone"
                     required
                   />
 
                   <input
                     type="date"
+                    name="dob"
                     className="form-control custom-input mb-3"
                     required
                   />
 
                   <input
                     type="password"
+                    name="password"
                     className="form-control custom-input mb-3"
                     placeholder="Password"
                     required
@@ -79,6 +84,7 @@ const Register = () => {
 
                   <input
                     type="password"
+                    name="repasswd"
                     className="form-control custom-input mb-3"
                     placeholder="Repeat Password"
                     required
@@ -96,6 +102,7 @@ const Register = () => {
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Company Name"
+                    name="cname"
                     required
                   />
 
@@ -103,12 +110,14 @@ const Register = () => {
                     type="email"
                     className="form-control custom-input mb-3"
                     placeholder="Company Email"
+                    name="cemail"
                     required
                   />
 
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Website"
+                    name="website"
                     required
                   />
 
@@ -116,6 +125,7 @@ const Register = () => {
                     type="password"
                     className="form-control custom-input mb-3"
                     placeholder="Password"
+                    name="password"
                     required
                   />
 
@@ -123,6 +133,7 @@ const Register = () => {
                     type="password"
                     className="form-control custom-input mb-3"
                     placeholder="Repeat Password"
+                    name="repasswd"
                     required
                   />
 

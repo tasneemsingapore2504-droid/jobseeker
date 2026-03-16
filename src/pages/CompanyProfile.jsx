@@ -77,7 +77,6 @@ import axios from "axios";
 
 const CompanyProfile = () => {
   const [formData, setFormData] = useState({
-    // employerId: "",
     cname: "",
     website: "",
     cemail: "",
@@ -99,9 +98,21 @@ const CompanyProfile = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/CompanyProfile", formData);
+      await axios.post("http://localhost:5000/api/companyprofile", formData);
 
       alert("Company Profile Saved");
+
+      // Reset form
+      setFormData({
+        cname: "",
+        website: "",
+        cemail: "",
+        cpnum: "",
+        address: "",
+        csize: "",
+        branch: "",
+        status: "",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -113,34 +124,46 @@ const CompanyProfile = () => {
       <p>Please fill out the form below to fill your Company Profile</p>
 
       <form onSubmit={handleSubmit}>
-        {/* <div className="field">
-          <label>Employer ID</label>
-          <input name="employerId" onChange={handleChange} required />
-        </div> */}
-
         <div className="field">
           <label>Company Name</label>
-          <input name="cname" onChange={handleChange} required />
+          <input
+            name="cname"
+            value={formData.cname}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="field">
           <label>Website</label>
-          <input name="website" onChange={handleChange} />
+          <input
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Email</label>
-          <input name="cemail" onChange={handleChange} />
+          <input
+            name="cemail"
+            value={formData.cemail}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Phone Number</label>
-          <input name="cpnum" onChange={handleChange} />
+          <input name="cpnum" value={formData.cpnum} onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Address</label>
-          <input name="address" onChange={handleChange} />
+          <input
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
@@ -151,6 +174,7 @@ const CompanyProfile = () => {
               type="radio"
               name="csize"
               value="Small"
+              checked={formData.csize === "Small"}
               onChange={handleChange}
             />{" "}
             Small
@@ -161,6 +185,7 @@ const CompanyProfile = () => {
               type="radio"
               name="csize"
               value="Medium"
+              checked={formData.csize === "Medium"}
               onChange={handleChange}
             />{" "}
             Medium
@@ -171,6 +196,7 @@ const CompanyProfile = () => {
               type="radio"
               name="csize"
               value="Large"
+              checked={formData.csize === "Large"}
               onChange={handleChange}
             />{" "}
             Large
@@ -179,16 +205,24 @@ const CompanyProfile = () => {
 
         <div className="field">
           <label>Branch Details</label>
-          <input name="branch" onChange={handleChange} />
+          <input
+            name="branch"
+            value={formData.branch}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="field">
           <label>Status</label>
-          <input name="status" onChange={handleChange} />
+          <input
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+          />
         </div>
 
         <button type="submit" className="submit-btn">
-          Apply
+          Save Profile
         </button>
       </form>
     </div>

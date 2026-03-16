@@ -385,10 +385,10 @@ export default function Admin() {
   const TABLES = {
     "Company Register": [
       "Company Name",
-      "Company email",
+      "Company Email",
       "Website",
       "Password",
-      "Repeat password",
+      "Repeat Password",
     ],
 
     "Candidate Register": [
@@ -397,7 +397,7 @@ export default function Admin() {
       "Phone",
       "Dob",
       "Password",
-      "Repeat password",
+      "Repeat Password",
     ],
 
     "Apply Form": [
@@ -419,12 +419,12 @@ export default function Admin() {
     ],
 
     "Candidate Profile": [
-      "Candidate ID",
       "First Name",
       "Last Name",
       "Gender",
       "Mother Name",
       "Father Name",
+      "Email",
       "Phone number",
       "Age",
       "Add DOB",
@@ -454,32 +454,30 @@ export default function Admin() {
     ],
 
     "Interview Form": [
-      "Candidate Name",
-      "Employer ID",
-      "Candidate ID",
       "Company Name",
       "Interview Date",
-      "Interview time",
-      "Interview place",
+      "Interview Time",
+      "Interview Place",
+      "Candidate Name",
       "Applied Position",
       "Selection",
     ],
 
     "Job Post": [
-      "Job ID",
-      "Employer ID",
-      "Candidate ID",
+      "Company",
       "Title",
       "Description",
-      "Requirements",
+      "Requirement",
+      "Qualification",
+      "Skills",
       "Salary",
-      "Job type",
-      "Work mode",
-      "Education",
+      "Job Type",
+      "Last Date",
+      "Work Mode",
       "Country",
       "State",
       "City",
-      "Status",
+      "Link",
     ],
   };
 
@@ -502,6 +500,65 @@ export default function Admin() {
       Experience: "experience",
       "Upload resume": "uploadRes",
       "Any other Document": "anyDoc",
+    },
+
+    "Candidate Profile": {
+      "First Name": "fname",
+      "Last Name": "lname",
+      Gender: "gender",
+      "Mother Name": "mname",
+      "Father Name": "faname",
+      Email: "email",
+      "Phone number": "phone",
+      Age: "age",
+      "Add DOB": "dob",
+      "Add current city": "city",
+      Address: "address",
+      Pincode: "pincode",
+      "Highest qualification": "qualification",
+      University: "university",
+      Percentage: "percentage",
+      Experience: "experience",
+      Skills: "skills",
+      Certificates: "certificates",
+      "Upload resume": "resume",
+      "Any other Document": "documents",
+    },
+
+    "Company Profile": {
+      "Company Name": "cname",
+      Website: "website",
+      Email: "cemail",
+      "Phone number": "cpnum",
+      Address: "address",
+      "Company size": "csize",
+      "Branch details": "branch",
+      Status: "status",
+    },
+    "Interview Form": {
+      "Company Name": "cname",
+      "Interview Date": "intDate",
+      "Interview Time": "intTime",
+      "Interview Place": "intPlace",
+      "Candidate Name": "candidateName",
+      "Applied Position": "apPos",
+      Selection: "selection",
+    },
+    "Job Post": {
+      Company: "company",
+      Title: "title",
+      Description: "description",
+      Requirement: "requirement",
+      Qualification: "qualification",
+      Skills: "skills",
+      Salary: "salary",
+      "Job Type": "jobType",
+      "Last Date": "lastDate",
+      "Work Mode": "workMode",
+      Country: "country",
+      State: "state",
+      City: "city",
+      Link: "link",
     },
   };
 
@@ -544,6 +601,13 @@ export default function Admin() {
     } else {
       setLoginError(true);
     }
+  };
+
+  // new change
+  const logout = () => {
+    setIsLoggedIn(false);
+    setCurrentTable(null);
+    setLogin({ id: "", pass: "" });
   };
 
   /* ================= FETCH DATA ================= */
@@ -607,7 +671,6 @@ export default function Admin() {
 
   const deleteRow = async (id) => {
     await axios.delete(API[currentTable] + "/" + id);
-
     fetchData(currentTable);
   };
 
@@ -687,11 +750,17 @@ export default function Admin() {
             {table}
           </button>
         ))}
+
+        {/* new change */}
+        <button className="btn btn-danger w-100 mt-3" onClick={logout}>
+          Logout
+        </button>
       </div>
 
       {/* MAIN */}
 
-      <div className="flex-grow-1 p-4">
+      {/* new change */}
+      <div className="flex-grow-1 p-4" style={{ overflowX: "auto" }}>
         {/* DASHBOARD */}
 
         {!currentTable && (
@@ -700,7 +769,6 @@ export default function Admin() {
               <div key={table} className="col-md-4 mb-3">
                 <div className="card p-3 text-center">
                   <h6>{table}</h6>
-
                   <h3>{database[table]?.length}</h3>
                 </div>
               </div>

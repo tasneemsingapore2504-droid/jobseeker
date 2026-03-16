@@ -116,9 +116,6 @@ import axios from "axios";
 
 const JobPost = () => {
   const [formData, setFormData] = useState({
-    // jobId: "",
-    // employerId: "",
-    // candidateId: "",
     company: "",
     title: "",
     description: "",
@@ -129,7 +126,6 @@ const JobPost = () => {
     jobType: "",
     lastDate: "",
     workMode: "",
-
     country: "",
     state: "",
     city: "",
@@ -150,6 +146,23 @@ const JobPost = () => {
       await axios.post("http://localhost:5000/api/JobPost", formData);
 
       alert("Job Posted Successfully");
+
+      setFormData({
+        company: "",
+        title: "",
+        description: "",
+        requirement: "",
+        qualification: "",
+        skills: "",
+        salary: "",
+        jobType: "",
+        lastDate: "",
+        workMode: "",
+        country: "",
+        state: "",
+        city: "",
+        link: "",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -161,78 +174,72 @@ const JobPost = () => {
       <p>Please fill out the form below to fill your Job Post</p>
 
       <form onSubmit={handleSubmit}>
-        {/* <div className="field">
-          <input
-            name="jobId"
-            placeholder="Job ID"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="field">
-          <input
-            name="employerId"
-            placeholder="Employer ID"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="field">
-          <input
-            name="candidateId"
-            placeholder="Candidate ID"
-            onChange={handleChange}
-            required
-          />
-        </div> */}
         <div className="field">
           <input
             name="company"
             placeholder="Company Name"
+            value={formData.company}
             onChange={handleChange}
             required
           />
         </div>
+
         <div className="field">
           <input
             name="title"
             placeholder="Title"
+            value={formData.title}
             onChange={handleChange}
             required
           />
         </div>
+
         <div className="field">
           <textarea
             name="description"
             placeholder="Description"
+            value={formData.description}
             onChange={handleChange}
           />
         </div>
+
         <div className="field">
           <input
             name="requirement"
             placeholder="Requirement"
+            value={formData.requirement}
             onChange={handleChange}
           />
         </div>
+
         <div className="field">
           <input
             name="qualification"
             placeholder="Qualification"
+            value={formData.qualification}
             onChange={handleChange}
           />
         </div>
+
         <div className="field">
-          <input name="skills" placeholder="Skills" onChange={handleChange} />
+          <input
+            name="skills"
+            placeholder="Skills"
+            value={formData.skills}
+            onChange={handleChange}
+          />
         </div>
+
         <div className="field">
           <input
             type="number"
             name="salary"
             placeholder="Salary"
+            value={formData.salary}
             onChange={handleChange}
           />
         </div>
+
         <div className="field">
           <label>Job Type</label>
 
@@ -241,9 +248,10 @@ const JobPost = () => {
               type="radio"
               name="jobType"
               value="FullTime"
+              checked={formData.jobType === "FullTime"}
               onChange={handleChange}
-            />{" "}
-            Full time
+            />
+            Full Time
           </label>
 
           <label>
@@ -251,9 +259,10 @@ const JobPost = () => {
               type="radio"
               name="jobType"
               value="PartTime"
+              checked={formData.jobType === "PartTime"}
               onChange={handleChange}
-            />{" "}
-            Part time
+            />
+            Part Time
           </label>
 
           <label>
@@ -261,19 +270,22 @@ const JobPost = () => {
               type="radio"
               name="jobType"
               value="Internship"
+              checked={formData.jobType === "Internship"}
               onChange={handleChange}
-            />{" "}
+            />
             Internship
           </label>
         </div>
+
         <div className="field">
           <input
-            name="lastDate"
-            placeholder="Last Date to Apply"
             type="date"
+            name="lastDate"
+            value={formData.lastDate}
             onChange={handleChange}
           />
         </div>
+
         <div className="field">
           <label>Work Mode</label>
 
@@ -282,8 +294,9 @@ const JobPost = () => {
               type="radio"
               name="workMode"
               value="Onsite"
+              checked={formData.workMode === "Onsite"}
               onChange={handleChange}
-            />{" "}
+            />
             Onsite
           </label>
 
@@ -292,8 +305,9 @@ const JobPost = () => {
               type="radio"
               name="workMode"
               value="Remote"
+              checked={formData.workMode === "Remote"}
               onChange={handleChange}
-            />{" "}
+            />
             Remote
           </label>
 
@@ -302,37 +316,51 @@ const JobPost = () => {
               type="radio"
               name="workMode"
               value="Hybrid"
+              checked={formData.workMode === "Hybrid"}
               onChange={handleChange}
-            />{" "}
+            />
             Hybrid
           </label>
         </div>
-        {/* <div className="field">
+
+        <div className="field">
           <input
-            name="education"
-            placeholder="Education"
+            name="country"
+            placeholder="Country"
+            value={formData.country}
             onChange={handleChange}
           />
-        </div> */}
-        <div className="field">
-          <input name="country" placeholder="Country" onChange={handleChange} />
         </div>
+
         <div className="field">
-          <input name="state" placeholder="State" onChange={handleChange} />
+          <input
+            name="state"
+            placeholder="State"
+            value={formData.state}
+            onChange={handleChange}
+          />
         </div>
+
         <div className="field">
-          <input name="city" placeholder="City" onChange={handleChange} />
+          <input
+            name="city"
+            placeholder="City"
+            value={formData.city}
+            onChange={handleChange}
+          />
         </div>
+
         <div className="field">
           <input
             name="link"
-            placeholder="Link of company page"
+            placeholder="Company Page Link"
+            value={formData.link}
             onChange={handleChange}
           />
         </div>
 
         <button type="submit" className="submit-btn">
-          Apply
+          Post Job
         </button>
       </form>
     </div>
