@@ -94,11 +94,11 @@ const Register = () => {
                     <label htmlFor="resumeUpload" className="form-label">
                       Resume
                     </label>
-                    <input 
-                      type="file" 
-                      className="form-control" 
-                      id="resumeUpload" 
-                      required 
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="resumeUpload"
+                      required
                     />
                   </div>
 
@@ -135,7 +135,7 @@ const Register = () => {
                     type="password"
                     className="form-control custom-input mb-3"
                     placeholder="Password"
-                    name="password"
+                    name="cpassword"
                     required
                   />
 

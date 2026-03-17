@@ -40,24 +40,49 @@ const Login = () => {
                   Recruiter
                 </button>
               </div>
+              {role === "jobseeker" && (
+                <form>
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control custom-input mb-3"
+                    placeholder="Email"
+                    required
+                  />
 
-              <form>
-                <input
-                  type="email"
-                  className="form-control custom-input mb-3"
-                  placeholder="Email"
-                  required
-                />
+                  <input
+                    type="password"
+                    name="password"
+                    className="form-control custom-input mb-3"
+                    placeholder="Password"
+                    required
+                  />
 
-                <input
-                  type="password"
-                  className="form-control custom-input mb-3"
-                  placeholder="Password"
-                  required
-                />
+                  <button className="custom-btn w-100">Login</button>
+                </form>
+              )}
 
-                <button className="custom-btn w-100">Login</button>
-              </form>
+              {role === "recruiter" && (
+                <form>
+                  <input
+                    type="email"
+                    name="cemail"
+                    className="form-control custom-input mb-3"
+                    placeholder="Company Email"
+                    required
+                  />
+
+                  <input
+                    type="password"
+                    name="cpassword"
+                    className="form-control custom-input mb-3"
+                    placeholder="Password"
+                    required
+                  />
+
+                  <button className="custom-btn w-100">Login</button>
+                </form>
+              )}
 
               <p className="text-center mt-3 small-text">
                 Don't have an account? <Link to="/register">Register</Link>

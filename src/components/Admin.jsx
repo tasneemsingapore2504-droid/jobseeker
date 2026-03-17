@@ -560,6 +560,22 @@ export default function Admin() {
       City: "city",
       Link: "link",
     },
+    "Company Register": {
+      "Company Name": "cname",
+      "Company Email": "cemail",
+      Website: "website",
+      Password: "cpassword",
+      "Repeat Password": "repasswd",
+    },
+
+    "Candidate Register": {
+      "Candidate Name": "fname",
+      Email: "email",
+      Phone: "phone",
+      Dob: "dob",
+      Password: "password",
+      "Repeat Password": "repasswd",
+    },
   };
 
   /* ================= API ROUTES ================= */
@@ -651,7 +667,7 @@ export default function Admin() {
 
   const saveData = async () => {
     try {
-      if (editingId) {
+      if (editingId !== null) {
         await axios.put(API[currentTable] + "/" + editingId, formData);
       } else {
         await axios.post(API[currentTable], formData);
@@ -675,9 +691,17 @@ export default function Admin() {
   };
 
   /* ================= EDIT ================= */
-
+  //  new change
   const editRow = (row) => {
-    setFormData(row);
+    let updatedForm = {};
+
+    Object.keys(MAP[currentTable] || {}).forEach((field) => {
+      const key = MAP[currentTable][field];
+      updatedForm[key] = row[key] || "";
+    });
+    // till here
+
+    setFormData(updatedForm);
     setEditingId(row._id);
     setShowForm(true);
   };
