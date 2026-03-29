@@ -98,8 +98,11 @@ const CompanyProfile = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/companyprofile", formData);
-
+      const data = await axios.post(
+        "http://localhost:5000/api/companyprofile",
+        formData,
+      );
+      localStorage.setItem("companyProfile", JSON.stringify(data));
       alert("Company Profile Saved");
 
       // Reset form

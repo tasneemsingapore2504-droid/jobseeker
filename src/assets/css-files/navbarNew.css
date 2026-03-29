@@ -65,6 +65,17 @@ body {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.nav-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 /* RIGHT */
 .nav-right {
   display: flex;

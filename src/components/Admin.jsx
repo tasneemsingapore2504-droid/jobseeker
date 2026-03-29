@@ -587,7 +587,7 @@ export default function Admin() {
     "Candidate Profile": "http://localhost:5000/api/candidateprofile",
     "Company Profile": "http://localhost:5000/api/companyprofile",
     "Interview Form": "http://localhost:5000/api/interviewform",
-    "Job Post": "http://localhost:5000/api/jobpost",
+    "Job Post": "http://localhost:5000/api/jobs/admin/all",
   };
 
   /* ================= STATES ================= */
@@ -706,6 +706,18 @@ export default function Admin() {
     setShowForm(true);
   };
 
+  /* ================= UPDATE STATUS (FOR JOB POST) ================= */
+  // new change
+  const updateStatus = async (id, status) => {
+    try {
+      await axios.put(`http://localhost:5000/api/jobs/admin/${id}`, { status });
+      fetchData("Job Post");
+    } catch (err) {
+      console.log(err);
+      alert(err?.response?.data?.message || "Failed to update job status");
+    }
+  };
+
   /* ================= LOGIN SCREEN ================= */
 
   if (!isLoggedIn) {
@@ -806,17 +818,18 @@ export default function Admin() {
           <>
             <div className="d-flex justify-content-between mb-3">
               <h4>{currentTable}</h4>
-
-              <button
-                className="btn btn-success"
-                onClick={() => {
-                  setFormData({});
-                  setEditingId(null);
-                  setShowForm(true);
-                }}
-              >
-                Add
-              </button>
+              {currentTable !== "Job Post" && (
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    setFormData({});
+                    setEditingId(null);
+                    setShowForm(true);
+                  }}
+                >
+                  Add
+                </button>
+              )}
             </div>
 
             {/* FORM */}
@@ -874,7 +887,7 @@ export default function Admin() {
                   {TABLES[currentTable].map((field) => (
                     <th key={field}>{field}</th>
                   ))}
-
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -901,19 +914,57 @@ export default function Admin() {
                       ))}
 
                       <td>
-                        <button
-                          className="btn btn-warning btn-sm me-2"
-                          onClick={() => editRow(row)}
-                        >
-                          Edit
-                        </button>
+                        {currentTable === "Job Post" ? (
+                          <span
+                            className={`badge ${
+                              row.status === "approved"
+                                ? "bg-success"
+                                : row.status === "rejected"
+                                  ? "bg-danger"
+                                  : "bg-warning"
+                            }`}
+                          >
+                            {row.status}
+                          </span>
+                        ) : (
+                          "-"
+                        )}
+                      </td>
 
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => deleteRow(row._id)}
-                        >
-                          Delete
-                        </button>
+                      <td>
+                        {currentTable === "Job Post" ? (
+                          <>
+                            <button
+                              className="btn btn-success btn-sm me-2"
+                              onClick={() => updateStatus(row._jid, "approved")}
+                            >
+                              Approve
+                            </button>
+
+                            <button
+                              className="btn btn-danger btn-sm me-2"
+                              onClick={() => updateStatus(row._jid, "rejected")}
+                            >
+                              Reject
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="btn btn-warning btn-sm me-2"
+                              onClick={() => editRow(row)}
+                            >
+                              Edit
+                            </button>
+
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => deleteRow(row._id)}
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))

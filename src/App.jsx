@@ -19,8 +19,8 @@ import NavbarNew from "./components/NavbarNew";
 import Footer from "./components/Footer";
 // import Todo from "./components/use-state/Todo";
 // import ListshowAPI from "./components/use-effect/ListshowAPI";
-import Admin from "./components/admin";
 
+import Admin from "./components/Admin";
 import ProjectHero from "./components/ProjectHero";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -31,7 +31,7 @@ import NotFound from "./pages/NotFound";
 import StudentDets from "./pages/StudentDets";
 import ViewStud from "./pages/ViewStud";
 import Register from "./pages/Register";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import ApplyForm from "./pages/ApplyForm";
 import Task from "./components/use-effect/task";
 import UserForm from "./pages/UserForm";
@@ -40,6 +40,8 @@ import CandidateProfile from "./pages/CandidateProfile";
 import CompanyProfile from "./pages/CompanyProfile";
 import InterviewForm from "./pages/InterviewForm";
 import JobPost from "./pages/JobPost";
+import Dashboard from "./pages/candidate/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -67,6 +69,14 @@ function App() {
         <Route path="/companyProfile" element={<CompanyProfile />} />
         <Route path="/interviewForm" element={<InterviewForm />} />
         <Route path="/jobPost" element={<JobPost />} />
+        <Route
+          path="/candidate/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {/* <MyHeader></MyHeader>
