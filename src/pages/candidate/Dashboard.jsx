@@ -65,8 +65,8 @@ const Dashboard = () => {
         <div class="hero-text">
           <h1>Find your dream job now</h1>
           <p color="black">Welcome to your dashboard, {user?.name}!</p>
-          <Link to="/companiesList">
-            <button class="explore">Explore Now</button>
+          <Link to="/candidate/interviews">
+            <button class="explore">View Interviews</button>
           </Link>
           <Link to="/candidateProfile">
             <button class="explore">Manage Profile</button>

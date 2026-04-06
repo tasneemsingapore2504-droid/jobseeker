@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 
@@ -52,14 +52,20 @@ function CompaniesList() {
                 <strong>Job Description:</strong> {job.description}
               </p>
 
-              <a
-                className="linkBtn"
-                href={job.link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View Company Website
-              </a>
+              <div className="d-flex gap-2 flex-wrap">
+                <a
+                  className="linkBtn"
+                  href={job.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Company Website
+                </a>
+
+                <Link className="linkBtn" to="/applyForm" state={{ job }}>
+                  Apply Now
+                </Link>
+              </div>
             </div>
           ))}
         </div>

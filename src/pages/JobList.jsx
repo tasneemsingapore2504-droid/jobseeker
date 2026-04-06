@@ -61,7 +61,7 @@ function JobList() {
                 <strong>Skills:</strong> {job.skills}
               </p>
 
-              <Link className="linkBtn" to="/applyForm">
+              <Link className="linkBtn" to="/applyForm" state={{ job }}>
                 Apply Now
               </Link>
             </div>

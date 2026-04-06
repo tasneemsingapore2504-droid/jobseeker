@@ -41,6 +41,7 @@ import CompanyProfile from "./pages/CompanyProfile";
 import InterviewForm from "./pages/InterviewForm";
 import JobPost from "./pages/JobPost";
 import Dashboard from "./pages/candidate/Dashboard";
+import Interviews from "./pages/candidate/Interviews";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -74,6 +75,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidate/interviews"
+          element={
+            <ProtectedRoute>
+              <Interviews />
             </ProtectedRoute>
           }
         />

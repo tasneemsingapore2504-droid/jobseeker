@@ -708,9 +708,11 @@ export default function Admin() {
 
   /* ================= UPDATE STATUS (FOR JOB POST) ================= */
   // new change
-  const updateStatus = async (id, status) => {
+  const updateStatus = async (jid, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/jobs/admin/${id}`, { status });
+      await axios.put(`http://localhost:5000/api/jobs/admin/${jid}`, {
+        status,
+      });
       fetchData("Job Post");
     } catch (err) {
       console.log(err);
@@ -932,37 +934,62 @@ export default function Admin() {
                       </td>
 
                       <td>
-                        {currentTable === "Job Post" ? (
+                        {currentTable === "Job Post" && (
                           <>
-                            <button
-                              className="btn btn-success btn-sm me-2"
-                              onClick={() => updateStatus(row._jid, "approved")}
-                            >
-                              Approve
-                            </button>
+                            <td>
+                              <span
+                                className={`badge ${
+                                  row.status === "approved"
+                                    ? "bg-success"
+                                    : row.status === "rejected"
+                                      ? "bg-danger"
+                                      : "bg-warning"
+                                }`}
+                              >
+                                {row.status}
+                              </span>
+                            </td>
 
-                            <button
-                              className="btn btn-danger btn-sm me-2"
-                              onClick={() => updateStatus(row._jid, "rejected")}
-                            >
-                              Reject
-                            </button>
+                            <td>
+                              <button
+                                className="btn btn-success btn-sm me-2"
+                                onClick={() =>
+                                  updateStatus(row._jid, "approved")
+                                }
+                              >
+                                Approve
+                              </button>
+
+                              <button
+                                className="btn btn-danger btn-sm me-2"
+                                onClick={() =>
+                                  updateStatus(row._jid, "rejected")
+                                }
+                              >
+                                Reject
+                              </button>
+                            </td>
                           </>
-                        ) : (
-                          <>
-                            <button
-                              className="btn btn-warning btn-sm me-2"
-                              onClick={() => editRow(row)}
-                            >
-                              Edit
-                            </button>
+                        )}
 
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() => deleteRow(row._id)}
-                            >
-                              Delete
-                            </button>
+                        {currentTable !== "Job Post" && (
+                          <>
+                            <td>-</td>
+                            <td>
+                              <button
+                                className="btn btn-warning btn-sm me-2"
+                                onClick={() => editRow(row)}
+                              >
+                                Edit
+                              </button>
+
+                              <button
+                                className="btn btn-danger btn-sm"
+                                onClick={() => deleteRow(row._id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
                           </>
                         )}
                       </td>

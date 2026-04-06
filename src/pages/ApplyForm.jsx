@@ -1,130 +1,97 @@
-// const ApplyForm = () => {
-//   return (
-//     <div class="form-card">
-//       <h1>Job Application Form</h1>
-//       <p>Please fill out the form below to submit your job application!</p>
-
-//       <form>
-//         <div class="row">
-//           <div class="field">
-//             <label>First Name</label>
-//             <input type="text" required />
-//           </div>
-//           <div class="field">
-//             <label>Last Name</label>
-//             <input type="text" required />
-//           </div>
-//         </div>
-
-//         <div class="row">
-//           <div class="field">
-//             <label>Mother Name</label>
-//             <input type="text" required />
-//           </div>
-//           <div class="field">
-//             <label>Father Name</label>
-//             <input type="text" required />
-//           </div>
-//         </div>
-
-//         <div class="field">
-//           <label>Email</label>
-//           <input type="email" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Phone Number</label>
-//           <input type="tel" required />
-//         </div>
-
-//         <div class="row">
-//           <div class="field">
-//             <label>Company Name</label>
-//             <input type="text" required />
-//           </div>
-//           <div class="field">
-//             <label>Applied Position</label>
-//             <input type="text" required />
-//           </div>
-//         </div>
-
-//         <div class="field">
-//           <label>Add DOB</label>
-//           <input type="date" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Add Work Status</label>
-//           <input type="text" required />
-//         </div>
-//         <div class="field">
-//           <label>Add Current City</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Address</label>
-//           <input type="text" required />
-//         </div>
-
-//         <div class="field">
-//           <label>Experience</label>
-//           <input type="text" />
-//         </div>
-
-//         <div class="field">
-//           <label>Upload Resume</label>
-//           <input type="file" />
-//         </div>
-
-//         <div class="field">
-//           <label>Any Other Documents</label>
-//           <input type="file" />
-//         </div>
-
-//         <button type="submit" class="submit-btn">
-//           Apply
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-// export default ApplyForm;
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ApplyForm = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const selectedJob = location.state?.job;
+  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
     mname: "",
     faname: "",
-    email: "",
+    email: currentUser?.email || "",
     pnum: "",
-    cname: "",
-    apPos: "",
+    cname: selectedJob?.company || "",
+    apPos: selectedJob?.title || "",
     dob: "",
     addws: "",
     addcc: "",
     address: "",
     experience: "",
-    uploadRes: "",
-    anyDoc: "",
   });
+  const [resumeFile, setResumeFile] = useState(null);
+  const [documentFile, setDocumentFile] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (selectedJob) {
+      setFormData((current) => ({
+        ...current,
+        cname: selectedJob.company || "",
+        apPos: selectedJob.title || "",
+      }));
+    }
+  }, [selectedJob]);
 
   const handleChange = (e) => {
+    const { name, value, files, type } = e.target;
+
+    if (type === "file") {
+      if (name === "Resume") {
+        setResumeFile(files?.[0] || null);
+      } else if (name === "AnyOtherDocument") {
+        setDocumentFile(files?.[0] || null);
+      }
+      return;
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!selectedJob?._jid || !selectedJob?.companyId) {
+      alert("Please apply from an approved job listing.");
+      navigate("/jobList");
+      return;
+    }
+
+    if (!currentUser?.id) {
+      alert("Please login first to apply for a job.");
+      navigate("/login");
+      return;
+    }
+
+    setSubmitting(true);
+
     try {
-      await axios.post("http://localhost:5000/api/ApplyForm", formData);
+      const payload = new FormData();
+
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value);
+      });
+
+      payload.append("userId", currentUser.id);
+      payload.append("jobId", selectedJob._jid);
+      payload.append("companyId", selectedJob.companyId);
+
+      if (resumeFile) {
+        payload.append("Resume", resumeFile);
+      }
+
+      if (documentFile) {
+        payload.append("AnyOtherDocument", documentFile);
+      }
+
+      await axios.post("http://localhost:5000/api/applications", payload);
 
       alert("Application Submitted Successfully");
 
@@ -133,20 +100,24 @@ const ApplyForm = () => {
         lname: "",
         mname: "",
         faname: "",
-        email: "",
+        email: currentUser?.email || "",
         pnum: "",
-        cname: "",
-        apPos: "",
+        cname: selectedJob?.company || "",
+        apPos: selectedJob?.title || "",
         dob: "",
         addws: "",
         addcc: "",
         address: "",
         experience: "",
-        uploadRes: "",
-        anyDoc: "",
       });
+      setResumeFile(null);
+      setDocumentFile(null);
+      navigate("/candidate/interviews");
     } catch (error) {
       console.log(error);
+      alert(error?.response?.data?.message || "Application submission failed");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -224,22 +195,12 @@ const ApplyForm = () => {
         <div className="row">
           <div className="field">
             <label>Company Name</label>
-            <input
-              name="cname"
-              value={formData.cname}
-              onChange={handleChange}
-              required
-            />
+            <input name="cname" value={formData.cname} readOnly />
           </div>
 
           <div className="field">
             <label>Applied Position</label>
-            <input
-              name="apPos"
-              value={formData.apPos}
-              onChange={handleChange}
-              required
-            />
+            <input name="apPos" value={formData.apPos} readOnly />
           </div>
         </div>
 
@@ -295,16 +256,16 @@ const ApplyForm = () => {
 
         <div className="field">
           <label>Upload Resume</label>
-          <input name="uploadRes" type="file" onChange={handleChange} />
+          <input name="Resume" type="file" onChange={handleChange} />
         </div>
 
         <div className="field">
           <label>Any Other Documents</label>
-          <input name="anyDoc" type="file" onChange={handleChange} />
+          <input name="AnyOtherDocument" type="file" onChange={handleChange} />
         </div>
 
-        <button type="submit" className="submit-btn">
-          Apply
+        <button type="submit" className="submit-btn" disabled={submitting}>
+          {submitting ? "Submitting..." : "Apply"}
         </button>
       </form>
     </div>
