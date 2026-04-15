@@ -380,6 +380,9 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Admin() {
+  const editableTables = ["Candidate Profile", "Company Profile"];
+  const responseTables = ["Contact Us"];
+
   /* ================= TABLE STRUCTURE ================= */
 
   const TABLES = {
@@ -479,6 +482,8 @@ export default function Admin() {
       "City",
       "Link",
     ],
+
+    "Contact Us": ["Name", "Email", "Phone", "Message", "Admin Response"],
   };
 
   /* ================= FIELD MAPPING ================= */
@@ -576,18 +581,27 @@ export default function Admin() {
       Password: "password",
       "Repeat Password": "repasswd",
     },
+
+    "Contact Us": {
+      Name: "name",
+      Email: "email",
+      Phone: "phone",
+      Message: "message",
+      "Admin Response": "adminResponse",
+    },
   };
 
   /* ================= API ROUTES ================= */
 
   const API = {
-    "Company Register": "http://localhost:5000/api/companyregister",
-    "Candidate Register": "http://localhost:5000/api/candidateregister",
+    "Company Register": "http://localhost:5000/api/admin/companyregisters",
+    "Candidate Register": "http://localhost:5000/api/admin/candidateregisters",
     "Apply Form": "http://localhost:5000/api/applyform",
-    "Candidate Profile": "http://localhost:5000/api/candidateprofile",
-    "Company Profile": "http://localhost:5000/api/companyprofile",
+    "Candidate Profile": "http://localhost:5000/api/admin/candidateprofiles",
+    "Company Profile": "http://localhost:5000/api/admin/companyprofiles",
     "Interview Form": "http://localhost:5000/api/interviewform",
     "Job Post": "http://localhost:5000/api/jobs/admin/all",
+    "Contact Us": "http://localhost:5000/api/contactfeedback",
   };
 
   /* ================= STATES ================= */
@@ -820,7 +834,7 @@ export default function Admin() {
           <>
             <div className="d-flex justify-content-between mb-3">
               <h4>{currentTable}</h4>
-              {currentTable !== "Job Post" && (
+              {editableTables.includes(currentTable) && (
                 <button
                   className="btn btn-success"
                   onClick={() => {
@@ -853,6 +867,10 @@ export default function Admin() {
                         <input
                           className="form-control"
                           placeholder={field}
+                          disabled={
+                            responseTables.includes(currentTable) &&
+                            field !== "Admin Response"
+                          }
                           value={
                             MAP[currentTable]
                               ? formData[MAP[currentTable][field]] || ""
@@ -898,7 +916,7 @@ export default function Admin() {
                 {database[currentTable]?.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={TABLES[currentTable].length + 1}
+                      colSpan={TABLES[currentTable].length + 2}
                       className="text-center"
                     >
                       No Data
@@ -936,60 +954,48 @@ export default function Admin() {
                       <td>
                         {currentTable === "Job Post" && (
                           <>
-                            <td>
-                              <span
-                                className={`badge ${
-                                  row.status === "approved"
-                                    ? "bg-success"
-                                    : row.status === "rejected"
-                                      ? "bg-danger"
-                                      : "bg-warning"
-                                }`}
-                              >
-                                {row.status}
-                              </span>
-                            </td>
+                            <button
+                              className="btn btn-success btn-sm me-2"
+                              onClick={() => updateStatus(row._jid, "approved")}
+                            >
+                              Approve
+                            </button>
 
-                            <td>
-                              <button
-                                className="btn btn-success btn-sm me-2"
-                                onClick={() =>
-                                  updateStatus(row._jid, "approved")
-                                }
-                              >
-                                Approve
-                              </button>
-
-                              <button
-                                className="btn btn-danger btn-sm me-2"
-                                onClick={() =>
-                                  updateStatus(row._jid, "rejected")
-                                }
-                              >
-                                Reject
-                              </button>
-                            </td>
+                            <button
+                              className="btn btn-danger btn-sm me-2"
+                              onClick={() => updateStatus(row._jid, "rejected")}
+                            >
+                              Reject
+                            </button>
                           </>
                         )}
 
                         {currentTable !== "Job Post" && (
                           <>
-                            <td>-</td>
-                            <td>
+                            {responseTables.includes(currentTable) && (
+                              <button
+                                className="btn btn-primary btn-sm me-2"
+                                onClick={() => editRow(row)}
+                              >
+                                Respond
+                              </button>
+                            )}
+
+                            {editableTables.includes(currentTable) && (
                               <button
                                 className="btn btn-warning btn-sm me-2"
                                 onClick={() => editRow(row)}
                               >
                                 Edit
                               </button>
+                            )}
 
-                              <button
-                                className="btn btn-danger btn-sm"
-                                onClick={() => deleteRow(row._id)}
-                              >
-                                Delete
-                              </button>
-                            </td>
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => deleteRow(row._id)}
+                            >
+                              Delete
+                            </button>
                           </>
                         )}
                       </td>

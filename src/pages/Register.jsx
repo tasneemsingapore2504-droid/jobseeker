@@ -259,6 +259,7 @@ const Register = () => {
               {/* JOB SEEKER FORM */}
               {role === "jobseeker" && (
                 <form onSubmit={handleSubmit}>
+                  <label className="form-label">Full Name</label>
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Full Name"
@@ -268,6 +269,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Email</label>
                   <input
                     type="email"
                     className="form-control custom-input mb-3"
@@ -278,6 +280,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Phone</label>
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Phone"
@@ -286,6 +289,7 @@ const Register = () => {
                     onChange={handleChange}
                   />
 
+                  <label className="form-label">Date Of Birth</label>
                   <input
                     type="date"
                     name="dob"
@@ -294,6 +298,7 @@ const Register = () => {
                     onChange={handleChange}
                   />
 
+                  <label className="form-label">Password</label>
                   <input
                     type="password"
                     name="password"
@@ -304,6 +309,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Repeat Password</label>
                   <input
                     type="password"
                     name="repassword"
@@ -328,6 +334,7 @@ const Register = () => {
               {/* RECRUITER FORM */}
               {role === "recruiter" && (
                 <form onSubmit={handleSubmit}>
+                  <label className="form-label">Company Name</label>
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Company Name"
@@ -337,6 +344,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Company Email</label>
                   <input
                     type="email"
                     className="form-control custom-input mb-3"
@@ -347,6 +355,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Website</label>
                   <input
                     className="form-control custom-input mb-3"
                     placeholder="Website"
@@ -355,6 +364,7 @@ const Register = () => {
                     onChange={handleChange}
                   />
 
+                  <label className="form-label">Password</label>
                   <input
                     type="password"
                     className="form-control custom-input mb-3"
@@ -365,6 +375,7 @@ const Register = () => {
                     required
                   />
 
+                  <label className="form-label">Repeat Password</label>
                   <input
                     type="password"
                     className="form-control custom-input mb-3"

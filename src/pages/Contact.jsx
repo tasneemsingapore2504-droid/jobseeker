@@ -1,14 +1,47 @@
+import { useState } from "react";
+import axios from "axios";
+
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
+
 const Contact = () => {
+  const [form, setForm] = useState(emptyForm);
+  const [sending, setSending] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSending(true);
+
+    try {
+      await axios.post("http://localhost:5000/api/contactfeedback", form);
+      alert("Feedback submitted successfully");
+      setForm(emptyForm);
+    } catch (error) {
+      console.log(error);
+      alert(error?.response?.data?.message || "Unable to submit feedback");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <>
-      <section class="contact-hero">
+      <section className="contact-hero">
         <h1>Contact Us</h1>
       </section>
 
-      <section class="contact-section">
-        <div class="contact-container">
+      <section className="contact-section">
+        <div className="contact-container">
           {/* <!-- Left Side Info --> */}
-          <div class="contact-info">
+          <div className="contact-info">
             <h2>Get In Touch</h2>
             <p>
               <b>Address:</b> Ujjain, Madhya Pradesh
@@ -22,13 +55,46 @@ const Contact = () => {
           </div>
 
           {/* <!-- Right Side Form --> */}
-          <div class="contact-form">
-            <form>
-              <input type="text" placeholder="Your Name" required />
-              <input type="email" placeholder="Your Email" required />
-              <input type="tel" placeholder="Phone Number" />
-              <textarea rows="4" placeholder="Your Message"></textarea>
-              <button type="submit">Send Message</button>
+          <div className="contact-form">
+            <form onSubmit={handleSubmit}>
+              <label>Your Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+              <label>Your Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label>Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+              />
+              <label>Your Message</label>
+              <textarea
+                rows="4"
+                name="message"
+                placeholder="Your Message"
+                value={form.message}
+                onChange={handleChange}
+                required
+              ></textarea>
+              <button type="submit" disabled={sending}>
+                {sending ? "Sending..." : "Send Message"}
+              </button>
             </form>
           </div>
         </div>

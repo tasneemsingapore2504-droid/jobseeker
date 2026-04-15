@@ -39,6 +39,8 @@ const CandidateProfile = () => {
   const [profileExists, setProfileExists] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [resumeFile, setResumeFile] = useState(null);
+  const [documentFile, setDocumentFile] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("user") || "null");
   const token = localStorage.getItem("token");
@@ -99,9 +101,28 @@ const CandidateProfile = () => {
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
+
+    if (type === "file") {
+      const selectedFile = files?.[0] || null;
+
+      if (name === "resume") {
+        setResumeFile(selectedFile);
+      }
+
+      if (name === "documents") {
+        setDocumentFile(selectedFile);
+      }
+
+      setForm((current) => ({
+        ...current,
+        [name]: selectedFile?.name || current[name] || "",
+      }));
+      return;
+    }
+
     setForm((current) => ({
       ...current,
-      [name]: type === "file" ? files?.[0]?.name || "" : value,
+      [name]: value,
     }));
   };
 
@@ -116,10 +137,22 @@ const CandidateProfile = () => {
     setSaving(true);
 
     try {
-      const payload = {
+      const payload = new FormData();
+
+      Object.entries({
         ...form,
         email: form.email || user.email || "",
-      };
+      }).forEach(([key, value]) => {
+        payload.append(key, value ?? "");
+      });
+
+      if (resumeFile) {
+        payload.set("resume", resumeFile);
+      }
+
+      if (documentFile) {
+        payload.set("documents", documentFile);
+      }
 
       const res = profileExists
         ? await axios.put(
@@ -135,6 +168,8 @@ const CandidateProfile = () => {
 
       localStorage.setItem("candidateProfile", JSON.stringify(res.data));
       setForm(normalizeProfile(res.data));
+      setResumeFile(null);
+      setDocumentFile(null);
       setProfileExists(true);
       alert(profileExists ? "Profile updated" : "Profile created");
     } catch (err) {
@@ -177,6 +212,7 @@ const CandidateProfile = () => {
       {loading && <p>Loading profile...</p>}
 
       <form onSubmit={handleSubmit}>
+        <label className="form-label">First Name</label>
         <input
           name="fname"
           value={form.fname}
@@ -185,6 +221,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Last Name</label>
         <input
           name="lname"
           value={form.lname}
@@ -193,6 +230,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Mother Name</label>
         <input
           name="mname"
           value={form.mname}
@@ -201,6 +239,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Father Name</label>
         <input
           name="faname"
           value={form.faname}
@@ -209,6 +248,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Gender</label>
         <select
           name="gender"
           value={form.gender}
@@ -223,6 +263,7 @@ const CandidateProfile = () => {
           <option value="Other">Other</option>
         </select>
 
+        <label className="form-label">Email</label>
         <input
           name="email"
           value={form.email}
@@ -231,6 +272,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Phone Number</label>
         <input
           name="phone"
           value={form.phone}
@@ -239,6 +281,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Age</label>
         <input
           name="age"
           value={form.age}
@@ -247,6 +290,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Date Of Birth</label>
         <input
           name="dob"
           type="date"
@@ -255,6 +299,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">City</label>
         <input
           name="city"
           value={form.city}
@@ -263,6 +308,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Address</label>
         <input
           name="address"
           value={form.address}
@@ -271,6 +317,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Pincode</label>
         <input
           name="pincode"
           value={form.pincode}
@@ -279,6 +326,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Qualification</label>
         <input
           name="qualification"
           value={form.qualification}
@@ -287,6 +335,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">University</label>
         <input
           name="university"
           value={form.university}
@@ -295,6 +344,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Percentage</label>
         <input
           name="percentage"
           value={form.percentage}
@@ -303,6 +353,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Experience</label>
         <input
           name="experience"
           value={form.experience}
@@ -311,6 +362,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Skills</label>
         <input
           name="skills"
           value={form.skills}
@@ -319,6 +371,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Certificates</label>
         <input
           name="certificates"
           value={form.certificates}
@@ -327,6 +380,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Resume</label>
         <input
           name="resume"
           type="file"
@@ -334,6 +388,7 @@ const CandidateProfile = () => {
           className="form-control mb-2"
         />
 
+        <label className="form-label">Documents</label>
         <input
           name="documents"
           type="file"

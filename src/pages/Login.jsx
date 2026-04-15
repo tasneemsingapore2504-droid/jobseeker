@@ -155,7 +155,7 @@ const Login = () => {
         }, 500);
       } else if (user.role === "jobseeker") {
         alert("jobseeker Login Successful");
-        
+
         setTimeout(() => {
           window.location.href = "candidate/dashboard";
         }, 500);
@@ -211,6 +211,7 @@ const Login = () => {
               <form onSubmit={handleSubmit}>
                 {role === "jobseeker" ? (
                   <>
+                    <label className="form-label">Email</label>
                     <input
                       type="email"
                       name="email"
@@ -222,6 +223,7 @@ const Login = () => {
                       required
                     />
 
+                    <label className="form-label">Password</label>
                     <input
                       type="password"
                       name="password"
@@ -233,6 +235,7 @@ const Login = () => {
                   </>
                 ) : (
                   <>
+                    <label className="form-label">Company Email</label>
                     <input
                       type="email"
                       name="cemail"
@@ -241,6 +244,7 @@ const Login = () => {
                       onChange={handleChange}
                       required
                     />
+                    <label className="form-label">Company Password</label>
                     <input
                       type="password"
                       name="cpassword"

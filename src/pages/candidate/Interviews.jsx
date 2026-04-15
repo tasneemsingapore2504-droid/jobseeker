@@ -54,15 +54,15 @@ function Interviews() {
   return (
     <div className="container mt-4">
       <h2>Interview Updates</h2>
-      <p>View whether your application is pending, rejected, or selected.</p>
+      <p>View your application status, interview details, and final result.</p>
 
       {applications.length === 0 ? (
         <p className="mt-3">You have not submitted any applications yet.</p>
       ) : (
         applications.map((application) => {
           const interview = interviewMap[String(application._id)];
-          const status =
-            interview?.selection || application.status || "pending";
+          const applicationStatus = application.status || "pending";
+          const interviewResult = interview?.interviewResult || "pending";
 
           return (
             <div key={application._id} className="card p-3 mb-4">
@@ -74,28 +74,28 @@ function Interviews() {
 
                 <span
                   className={`badge ${
-                    status === "selected"
+                    applicationStatus === "selected"
                       ? "bg-success"
-                      : status === "rejected"
+                      : applicationStatus === "rejected"
                         ? "bg-danger"
                         : "bg-warning"
                   }`}
                 >
-                  {status}
+                  {applicationStatus}
                 </span>
               </div>
 
-              {status === "rejected" && (
+              {applicationStatus === "rejected" && (
                 <p className="mb-0">
                   This company has rejected your application.
                 </p>
               )}
 
-              {status === "pending" && (
+              {applicationStatus === "pending" && (
                 <p className="mb-0">Your application is still under review.</p>
               )}
 
-              {status === "selected" && interview && (
+              {applicationStatus === "selected" && interview && (
                 <div className="table-responsive">
                   <table className="table table-bordered align-middle mb-0">
                     <tbody>
@@ -123,12 +123,20 @@ function Interviews() {
                         <th>Interview Place</th>
                         <td>{interview.intPlace}</td>
                       </tr>
+                      <tr>
+                        <th>Interview Result</th>
+                        <td>{interviewResult}</td>
+                      </tr>
+                      <tr>
+                        <th>Remarks</th>
+                        <td>{interview.remarks || "No remarks added yet"}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               )}
 
-              {status === "selected" && !interview && (
+              {applicationStatus === "selected" && !interview && (
                 <p className="mb-0">
                   You have been selected. Interview details will appear here
                   once the company submits them.
